@@ -1,39 +1,26 @@
-import react, {useEffect, useState} from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import MedicalForm from "./pages/MedicalForm";
 import './App.css';
+import MedicalFormsHome from "./pages/MedicalFormsHome";
 
 function App() {
-
-    const[data, setData] = useState([]);
-
-    const getServers = async () => {
-        const res = await fetch('http://localhost:8090/test');
-        const json = await res.json();
-        setData(json);
-    }
-
-    useEffect(() => {
-        getServers();
-    }, []);
-
     return (
-    <div className="App">
-      <header className="App-header">
-        <div>
-            {Object.keys(data).map(key => {
-                return (
-                    <div>
-                        <p>{key}</p>
-                        <input
-                            type="text"
-                            defaultValue={data[key]}
+        <div className="App">
+            <header className="App-header">
+                <BrowserRouter>
+                    <Routes>
+                        <Route
+                            path={'medical-forms'}
+                            element={<MedicalFormsHome/>}>
+                        </Route>
+                        <Route
+                            path={'medical-form/:form_id'}
+                            element={<MedicalForm/>}
                         />
-                    </div>
-                )
-            })}
+                    </Routes>
+                </BrowserRouter>
+            </header>
         </div>
-      </header>
-    </div>
     );
 }
-
 export default App;
