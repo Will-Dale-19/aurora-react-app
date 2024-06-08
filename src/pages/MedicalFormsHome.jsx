@@ -18,6 +18,7 @@ function MedicalFormsHome() {
         setForms(json.medical_forms);
     }
 
+    let test = 0
     let form_api_url_local = `http://127.0.0.1:8000/medical-forms?form_id=${form_id}`
     let form_api_url = `https://api.binarytint.com/medical-forms?form_id=${form_id}`
 
