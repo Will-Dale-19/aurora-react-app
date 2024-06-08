@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import MedicalForm from "./pages/MedicalForm";
 import './App.css';
 import MedicalFormsHome from "./pages/MedicalFormsHome";
 
