@@ -13,10 +13,6 @@ function App() {
                             path={'/'}
                             element={<MedicalFormsHome/>}>
                         </Route>
-                        <Route
-                            path={'medical-form/:form_id'}
-                            element={<MedicalForm/>}
-                        />
                     </Routes>
                 </BrowserRouter>
             </header>
