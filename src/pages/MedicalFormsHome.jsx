@@ -43,7 +43,7 @@ function MedicalFormsHome() {
     if (!form_id) {
         return (
             <div>
-                <h1> Home Page </h1>
+                <h1> Clinix </h1>
                 <div>
                     {forms.map(medical_form => {
                         return (
