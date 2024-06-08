@@ -9,16 +9,20 @@ function MedicalFormsHome() {
 
     let navigate = useNavigate();
 
-    let api_url = "http://127.0.0.1:8000/medical-forms"
+    let forms_api_url_local = 'http://127.0.0.1:8000/medical-forms'
+    let forms_api_url = 'https://api.binarytint.com/medical-forms'
 
     const getForms = async () => {
-        const res = await fetch(api_url);
+        const res = await fetch(forms_api_url);
         const json = await res.json();
         setForms(json.medical_forms);
     }
 
+    let form_api_url_local = `http://127.0.0.1:8000/medical-forms?form_id=${form_id}`
+    let form_api_url = `https://api.binarytint.com/medical-forms?form_id=${form_id}`
+
     const getForm = async () => {
-        const res = await fetch(`http://127.0.0.1:8000/medical-forms?form_id=${form_id}`);
+        const res = await fetch(form_api_url);
         const json = await res.json();
         setForm(json);
     }

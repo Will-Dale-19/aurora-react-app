@@ -10,7 +10,7 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route
-                            path={'medical-forms'}
+                            path={'/'}
                             element={<MedicalFormsHome/>}>
                         </Route>
                         <Route
