@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import {useEffect, useRef, useState} from 'react'
+import ReactJson from 'react-json-view';
+import {useNavigate, useSearchParams} from 'react-router-dom'
 
 function MedicalFormsHome() {
     const[forms, setForms] = useState([]);
@@ -24,15 +25,22 @@ function MedicalFormsHome() {
     const getForm = async () => {
         const res = await fetch(form_api_url);
         const json = await res.json();
-        setForm(json);
+        setJsonData(json);
     }
 
     useEffect(() => {
-        getForms();
         if (form_id) {
             getForm()
+        } else {
+            getForms()
         }
     }, [searchParams]);
+
+    const [jsonData, setJsonData] = useState(null);
+
+    const handleEdit = (edit) => {
+        setJsonData(edit.updated_src);
+    };
 
     const onLinkClick = (event) => {
         const id = event.target.textContent;
@@ -55,28 +63,49 @@ function MedicalFormsHome() {
             </div>
         )
     } else {
-
-        return (
-            <div className="medicalForm">
-                <div>
-                    <button onClick={() => navigate(-1)}>Back</button>
+        if (jsonData === null) {
+            getForm()
+        } else {
+            return (
+                <div className="medicalForm">
+                    <div>
+                        <button onClick={() => navigate(-1)}>Back</button>
+                    </div>
+                    <ReactJson
+                        src={jsonData}
+                        collapsed={false}
+                        enableClipboard={true}
+                        displayDataTypes={false}
+                        displayObjectSize={false}
+                        onEdit={handleEdit}
+                        onAdd={handleEdit}
+                        onDelete={handleEdit}
+                    />
                 </div>
-                <div>
-                    {Object.keys(form).map(key => {
-                        return (
-                            <div>
-                                <p>{key}</p>
-                                <input
-                                    type="text"
-                                    defaultValue={form[key]}
-                                />
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
-        )
+            )
+        }
     }
+
+
 }
 
+
+
+
 export default MedicalFormsHome;
+
+/*
+                    <div>
+                        {Object.keys(form).map(key => {
+                            return (
+                                <div>
+                                    <p>{key}</p>
+                                    <input
+                                        type="text"
+                                        defaultValue={form[key]}
+                                    />
+                                </div>
+                            )
+                        })}
+                    </div>
+ */
